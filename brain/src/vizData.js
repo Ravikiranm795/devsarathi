@@ -314,6 +314,8 @@ module.exports = {
   KEEP_VERSIONS,
   SCHEMA_VERSION,
   readIndex,
+  exportSnapshot,
+  versionIdFor,
   snapshotFromStore,
   refreshAll,
   loadSnapshot,

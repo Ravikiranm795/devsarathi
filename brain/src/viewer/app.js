@@ -60,7 +60,7 @@
     return new Promise(function (resolve, reject) {
       (BRAIN_VIZ.waiting[key] = BRAIN_VIZ.waiting[key] || []).push({ resolve: resolve });
       var s = document.createElement('script');
-      s.src = 'repos/' + encodeURIComponent(repoId) + '/' + encodeURIComponent(versionId) + '.js';
+      s.src = 'repos/' + encodeURIComponent(repoId) + '/' + encodeURIComponent(versionId) + '.js' + (window.BRAIN_VIZ_SUFFIX || '');
       s.onerror = function () { s.remove(); reject(new Error('Could not load ' + s.src)); };
       document.head.appendChild(s);
       setTimeout(function () { if (!BRAIN_VIZ.snaps[key]) reject(new Error('Timed out loading this build')); }, 60000);

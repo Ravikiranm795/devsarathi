@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as crypto from 'crypto';
 import type { AddressInfo } from 'net';
 import { defaultRegistryPath, listRepos, loadRepoEntries, readRepoSummary } from './reader';
+import { graphReply } from './graph';
 
 export interface DashboardOptions {
   port?: number;
@@ -122,6 +123,13 @@ export async function startDashboard(opts: DashboardOptions = {}): Promise<Dashb
         return sendJson(req, res, 200, readRepoSummary(entry.path, { id: entry.id, name: entry.name }));
       }
       if (url.pathname.startsWith('/api/')) return fail(req, res, 404, 'Not found');
+      if (url.pathname === '/graph' || url.pathname.startsWith('/graph/')) {
+        const g = graphReply(url.pathname, loadRepoEntries(registryPath, opts.focusRepo), token);
+        if (g) {
+          if (g.status === 301) return send(req, res, 301, g.type, '', { Location: `/graph/${url.search}` });
+          return send(req, res, g.status, g.type, g.body, g.csp ? { 'Content-Security-Policy': g.csp } : {});
+        }
+      }
 
       const file = resolveStatic(url.pathname);
       const type = file ? MIME[path.extname(file).toLowerCase()] : undefined;

@@ -520,6 +520,7 @@ Uninstall removes only those entries.
 - **Started** by `devsarathi dashboard` and served on localhost only (§15).
 - **Reads** `~/.devsarathi/registry.json` (the configured repos) and each repo's `metrics.json`, `build-record.json`, reviews and changelog.
 - **Shows everything.** At the top, the latest graph build time, branch and commit. Below that, a per-repo graph summary (modules, symbols, coverage), all metrics from §16 with trends, consistency of use, efficiency (turns per task before versus after), review outcomes, rule change history, and self-test history.
+- **3D graph.** `/graph/` on the same server draws the repo's graph as a 3D city (the brain's viewer), read-only from the repo's `graph.sqlite`. It is the one page that shows symbol and file names, and it never sends an absolute path.
 - **Commands** are not run from the website. They run in the VS Code terminal, the Claude chat, or through the extension.
 
 ---

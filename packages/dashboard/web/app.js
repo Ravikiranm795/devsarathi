@@ -185,6 +185,10 @@
       kids.push(el('h3', null, 'Parsed coverage vs threshold'));
       kids.push(barRows([{ label: 'Parsed files', value: cov.ratio * 100, text: pct(cov.ratio) + (isNum(cov.parsedFiles) ? ' (' + fmt(cov.parsedFiles) + ' of ' + fmt(cov.eligibleFiles) + ')' : ''), cls: cov.ratio < (th || 0) ? 'swarn' : 's2' }], 100));
     }
+    if (b && state.id) {
+      // The 3D view is its own page; its asset tags cannot send a header, so the link carries this session's token.
+      kids.push(el('p', { class: 'graph-link' }, el('a', { class: 'btn', href: '/graph/?token=' + encodeURIComponent(token) + '#r=' + encodeURIComponent(state.id), target: '_blank', rel: 'noopener' }, 'Open the 3D graph')));
+    }
     var grid = [];
     if (g && Object.keys(g.languages).length) {
       var langs = Object.keys(g.languages).map(function (k) { return { label: k, value: g.languages[k] }; }).sort(function (a, b) { return b.value - a.value; }).slice(0, 8);

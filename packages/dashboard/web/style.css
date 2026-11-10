@@ -111,6 +111,8 @@ select, .btn {
 }
 .btn { cursor: pointer; }
 .btn:hover, select:hover { background: var(--surface-2); }
+a.btn { display: inline-flex; align-items: center; text-decoration: none; }
+.graph-link { margin: 18px 0 6px; }
 
 main { max-width: 1120px; margin: 0 auto; padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; outline: none; }
 .foot { max-width: 1120px; margin: 0 auto; padding: 8px 16px 32px; color: var(--muted); font-size: .8rem; }

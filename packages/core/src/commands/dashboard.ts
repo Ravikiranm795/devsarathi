@@ -30,6 +30,7 @@ const dashboard: CommandDef = {
     const mod = require(DIST) as { startDashboard(o: Record<string, unknown>): Promise<{ url: string; close(): Promise<void> }> };
     const srv = await mod.startDashboard({ port: args.port, focusRepo: ctx.repoRoot });
     process.stdout.write(`Dashboard: ${srv.url}\n`);
+    process.stdout.write(`3D graph: ${srv.url.replace('/?token=', '/graph/?token=')}\n`);
     process.stderr.write('Read-only, bound to 127.0.0.1. Press Ctrl+C to stop.\n');
     if (!args.noOpen) openBrowser(srv.url);
     await new Promise<void>((resolve) => {

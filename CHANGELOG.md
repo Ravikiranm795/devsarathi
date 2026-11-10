@@ -7,6 +7,7 @@ Template changes are marked **[template]**: they affect `devsarathi migrate`. Ve
 First build of DevSarathi, produced from MASTER.md and DECISIONS.md.
 
 ### Added
+- **3D graph view** in the local dashboard: `devsarathi dashboard` now also serves `/graph/` (the dashboard prints a `3D graph:` link, and the Graph summary card has an "Open the 3D graph" button). It reuses the brain's three.js city viewer (folders are districts, files are plots, symbols are blocks; select one to see its callers and calls as arcs) and reads the repo's own `.claude/devsarathi/graph/graph.sqlite` read-only. Offline, 127.0.0.1 only, same session token; the page gets a CSP that adds only inline style attributes. It shows symbol and file names, which the rest of the dashboard does not.
 - `init` flow: stack detection (Angular, React, Java, Python, PHP profiles), baseline branch, persona, token-budget and file preview, graph build,
   workspace generation, hooks, audit, registry, optional skills step.
 - Drishti graph (`brain/`): baseline-branch model with temporary worktrees, coverage and threshold, overlay for uncommitted and unpushed changes,
