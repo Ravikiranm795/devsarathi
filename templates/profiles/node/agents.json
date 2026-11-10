@@ -1,0 +1,30 @@
+{
+  "developer": [
+    "Validate every external input (CLI flags, request bodies, file contents) at the boundary before it reaches logic.",
+    "Never build a shell command from input: use `execFile`/`spawn` with an argument array.",
+    "Handle every promise: no floating promises, `await` inside `try`/`catch` where failure is expected, and clear exit codes in CLIs.",
+    "Use `path.join`/`path.resolve` and reject paths that escape the intended folder; never log `process.env` values.",
+    "Modules are CommonJS or ESM consistently with their neighbours; keep exports small and single-purpose."
+  ],
+  "tester": [
+    "Tests live under `test/` and run with the repo's runner ({{testFramework}}); new modules get a test file named after them.",
+    "Isolate the file system with temp directories and clean up; never write into the repo or the user's home.",
+    "Cover failure paths: missing files, malformed input, timeouts and rejected promises.",
+    "Check that tests do not need network access, wall-clock time or a specific order."
+  ],
+  "security": [
+    "Command injection through `exec` with template strings; use argument arrays.",
+    "Path traversal from user-supplied paths; unvalidated `require` or dynamic `import`.",
+    "Disabled TLS verification (`rejectUnauthorized: false`), `eval` or `new Function`.",
+    "Secrets in `package.json` scripts, `.npmrc` tokens, and `postinstall` scripts in new dependencies."
+  ],
+  "peer-review": [
+    "Callers across files: exported function signature changes break every `require` of it; open each caller the impact list names.",
+    "Event listeners and timers that keep the process alive; streams that are not closed.",
+    "Sync file APIs in request paths; unbounded buffers when reading large inputs.",
+    "Dynamic `require`/`import` with computed paths hides callers from the graph."
+  ],
+  "auditor": [
+    "Rules for Node.js should mention argument-array process calls and input validation; test-location rules should say `test/`."
+  ]
+}

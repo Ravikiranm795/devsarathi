@@ -1,0 +1,42 @@
+{
+  "focus": "For React look at dangerouslySetInnerHTML, unvalidated redirects, tokens in localStorage and secrets exposed through public env prefixes.",
+  "patterns": [
+    {
+      "id": "react-dangerous-html",
+      "re": "dangerouslySetInnerHTML",
+      "severity": "high",
+      "message": "Raw HTML injection: confirm the content is sanitized",
+      "ext": [
+        ".tsx",
+        ".jsx",
+        ".js",
+        ".ts"
+      ]
+    },
+    {
+      "id": "js-eval",
+      "re": "\\beval\\s*\\(|new Function\\s*\\(",
+      "severity": "high",
+      "message": "Dynamic code execution",
+      "ext": [
+        ".ts",
+        ".tsx",
+        ".js",
+        ".jsx"
+      ]
+    },
+    {
+      "id": "react-public-secret",
+      "re": "(NEXT_PUBLIC|REACT_APP|VITE)_[A-Z_]*(SECRET|PASSWORD|PRIVATE)",
+      "severity": "high",
+      "message": "Secret exposed through a public environment prefix",
+      "ext": [
+        ".ts",
+        ".tsx",
+        ".js",
+        ".jsx",
+        ".env"
+      ]
+    }
+  ]
+}

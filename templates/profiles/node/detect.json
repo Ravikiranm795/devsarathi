@@ -1,0 +1,45 @@
+{
+  "id": "node",
+  "displayName": "Node.js",
+  "category": "backend",
+  "signals": [
+    { "all": [{ "file": "package.json" }, { "extension": ".js", "minCount": 3, "deep": true }] },
+    { "all": [{ "file": "package.json" }, { "extension": ".mjs", "minCount": 3, "deep": true }] },
+    { "all": [{ "file": "package.json" }, { "extension": ".ts", "minCount": 3, "deep": true }] }
+  ],
+  "excludeWhen": [
+    { "file": "angular.json" },
+    { "file": "package.json", "dep": "@angular/core" },
+    { "file": "package.json", "dep": "react" },
+    { "file": "package.json", "dep": "react-dom" }
+  ],
+  "frameworks": [
+    { "name": "Express", "file": "package.json", "dep": "express" },
+    { "name": "Fastify", "file": "package.json", "dep": "fastify" },
+    { "name": "NestJS", "file": "package.json", "dep": "@nestjs/core" },
+    { "name": "Koa", "file": "package.json", "dep": "koa" },
+    { "name": "MCP SDK", "file": "package.json", "dep": "@modelcontextprotocol/sdk" },
+    { "name": "Commander CLI", "file": "package.json", "dep": "commander" }
+  ],
+  "tests": [
+    { "name": "node:test", "file": "package.json", "contains": "node --test" },
+    { "name": "Jest", "file": "package.json", "dep": "jest" },
+    { "name": "Vitest", "file": "package.json", "dep": "vitest" },
+    { "name": "Mocha", "file": "package.json", "dep": "mocha" }
+  ],
+  "linters": [
+    { "name": "ESLint", "file": "package.json", "dep": "eslint" },
+    { "name": "Prettier", "file": "package.json", "dep": "prettier" },
+    { "name": "Biome", "file": "package.json", "dep": "@biomejs/biome" }
+  ],
+  "buildTools": [
+    { "name": "TypeScript", "file": "tsconfig.json" },
+    { "name": "npm scripts", "file": "package.json" }
+  ],
+  "packageManagers": [
+    { "name": "pnpm", "file": "pnpm-lock.yaml" },
+    { "name": "yarn", "file": "yarn.lock" },
+    { "name": "npm", "file": "package-lock.json" }
+  ],
+  "stateManagement": []
+}

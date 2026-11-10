@@ -1,0 +1,45 @@
+{
+  "id": "java",
+  "displayName": "Java",
+  "category": "backend",
+  "signals": [
+    { "file": "pom.xml" },
+    { "file": "build.gradle" },
+    { "file": "build.gradle.kts" }
+  ],
+  "frameworks": [
+    { "name": "Spring Boot", "file": "pom.xml", "contains": "spring-boot" },
+    { "name": "Spring Boot", "file": "build.gradle", "contains": "spring-boot" },
+    { "name": "Spring Boot", "file": "build.gradle.kts", "contains": "spring-boot" },
+    { "name": "Quarkus", "file": "pom.xml", "contains": "quarkus" },
+    { "name": "Micronaut", "file": "pom.xml", "contains": "micronaut" },
+    { "name": "Jakarta EE", "file": "pom.xml", "contains": "jakarta.platform" }
+  ],
+  "tests": [
+    { "name": "JUnit 5", "file": "pom.xml", "contains": "junit-jupiter" },
+    { "name": "JUnit 5", "file": "build.gradle", "contains": "junit-jupiter" },
+    { "name": "JUnit 5", "file": "build.gradle.kts", "contains": "junit-jupiter" },
+    { "name": "JUnit 4", "file": "pom.xml", "contains": "<artifactId>junit</artifactId>" },
+    { "name": "TestNG", "file": "pom.xml", "contains": "testng" },
+    { "name": "Mockito", "file": "pom.xml", "contains": "mockito" }
+  ],
+  "linters": [
+    { "name": "Checkstyle", "file": "pom.xml", "contains": "checkstyle" },
+    { "name": "Checkstyle", "file": "build.gradle", "contains": "checkstyle" },
+    { "name": "Spotless", "file": "pom.xml", "contains": "spotless" },
+    { "name": "Spotless", "file": "build.gradle", "contains": "spotless" },
+    { "name": "PMD", "file": "pom.xml", "contains": "maven-pmd-plugin" },
+    { "name": "SpotBugs", "file": "pom.xml", "contains": "spotbugs" }
+  ],
+  "buildTools": [
+    { "name": "Maven", "file": "pom.xml" },
+    { "name": "Gradle", "file": "build.gradle" },
+    { "name": "Gradle", "file": "build.gradle.kts" }
+  ],
+  "packageManagers": [
+    { "name": "Maven", "file": "pom.xml" },
+    { "name": "Gradle", "file": "build.gradle" },
+    { "name": "Gradle", "file": "build.gradle.kts" }
+  ],
+  "stateManagement": []
+}

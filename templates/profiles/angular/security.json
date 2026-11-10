@@ -1,0 +1,44 @@
+{
+  "focus": "For Angular look at bypassSecurityTrust*, innerHTML bindings, eval, tokens in localStorage and HTTP calls without an interceptor.",
+  "patterns": [
+    {
+      "id": "ng-bypass-sanitizer",
+      "re": "bypassSecurityTrust(Html|Script|Style|Url|ResourceUrl)",
+      "severity": "high",
+      "message": "Sanitizer bypass: confirm the value can never contain user input",
+      "ext": [
+        ".ts"
+      ]
+    },
+    {
+      "id": "ng-inner-html",
+      "re": "\\[innerHTML\\]|\\.innerHTML\\s*=",
+      "severity": "medium",
+      "message": "Raw HTML binding: confirm the content is sanitized",
+      "ext": [
+        ".ts",
+        ".html"
+      ]
+    },
+    {
+      "id": "js-eval",
+      "re": "\\beval\\s*\\(|new Function\\s*\\(",
+      "severity": "high",
+      "message": "Dynamic code execution",
+      "ext": [
+        ".ts",
+        ".js"
+      ]
+    },
+    {
+      "id": "js-token-storage",
+      "re": "localStorage\\.setItem\\([^)]*(token|jwt|secret|password)",
+      "severity": "medium",
+      "message": "Credential kept in localStorage",
+      "ext": [
+        ".ts",
+        ".js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+DevSarathi for VS Code
+Copyright (c) 2026 Ravikiran M. All rights reserved.
+
+You may install and use this extension, for personal or commercial purposes, free of charge.
+
+You may not copy, modify, merge, publish, distribute, sublicense, sell or reverse engineer the extension or any part of it,
+except where applicable law gives you that right and it cannot be waived by agreement.
+
+THE EXTENSION IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY ARISING FROM, OUT OF OR IN CONNECTION WITH THE EXTENSION OR ITS USE.
+
+The extension is a thin interface to the separately distributed command-line tool @ravikiranm795/dev-sarathi, which is
+licensed separately.

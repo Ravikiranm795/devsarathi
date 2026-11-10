@@ -1,0 +1,30 @@
+{
+  "developer": [
+    "Type hints on new functions, consistent with the module; validate external input at the boundary (pydantic, serializers, forms).",
+    "Keep route handlers thin; put logic in service functions that can be tested without the web layer.",
+    "No `eval`, `exec`, `pickle`, `shell=True` or string-built SQL on external input.",
+    "Dependency injection (`Depends` in FastAPI, settings objects) rather than module-level globals; check `getattr` and `importlib` use, which the graph cannot follow.",
+    "Respect the framework layout (Django apps and migrations, FastAPI routers)."
+  ],
+  "tester": [
+    "pytest tests live under `tests/` named `test_*.py`; use fixtures for setup and parametrize for cases.",
+    "Cover the API through the test client and the logic through direct calls; mock only external services.",
+    "Check for tests that read the real environment, network or wall clock.",
+    "Django: tests for migrations, permissions and serializers; FastAPI: dependency overrides for auth and database."
+  ],
+  "security": [
+    "Injection: SQL f-strings, `subprocess` with `shell=True`, template injection, path traversal in file handling.",
+    "Unsafe deserialization: `pickle`, `yaml.load` without `SafeLoader`, `marshal`.",
+    "`DEBUG = True`, permissive `ALLOWED_HOSTS`, `SECRET_KEY` in code, CORS wildcards, missing auth dependencies on new routes.",
+    "Dependencies in `requirements*.txt`/`pyproject.toml`: unpinned versions, typosquats, packages with install hooks."
+  ],
+  "peer-review": [
+    "Mutable default arguments, bare `except`, swallowed errors, blocking calls inside async handlers.",
+    "Dynamic references (`getattr`, `importlib`) that hide callers from the impact list.",
+    "Django: N+1 queries, missing `select_related`, migrations that lock large tables.",
+    "Public response shape changes that break API clients."
+  ],
+  "auditor": [
+    "Rules for Python should say `test_*.py` under `tests/`; type-hint and validation rules should not contradict the framework's own conventions."
+  ]
+}

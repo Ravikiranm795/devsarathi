@@ -1,0 +1,141 @@
+{
+  "name": "devsarathi",
+  "displayName": "DevSarathi",
+  "publisher": "ravikiranm",
+  "version": "0.1.0",
+  "description": "DevSarathi in VS Code: staged setup, review and test notifications with Rerun, a status and approvals sidebar, and the local dashboard. A thin layer over the devsarathi CLI.",
+  "main": "./dist/extension.js",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:.claude/devsarathi/config.json"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "devsarathi.init",
+        "title": "DevSarathi: Init (set up this repo)"
+      },
+      {
+        "command": "devsarathi.enhance",
+        "title": "DevSarathi: Enhance a prompt"
+      },
+      {
+        "command": "devsarathi.review",
+        "title": "DevSarathi: Review current changes"
+      },
+      {
+        "command": "devsarathi.test",
+        "title": "DevSarathi: Run tests (ds-tester)"
+      },
+      {
+        "command": "devsarathi.refresh",
+        "title": "DevSarathi: Refresh graph and rules"
+      },
+      {
+        "command": "devsarathi.approvals",
+        "title": "DevSarathi: Pending rule approvals"
+      },
+      {
+        "command": "devsarathi.selftest",
+        "title": "DevSarathi: Self-test"
+      },
+      {
+        "command": "devsarathi.skills",
+        "title": "DevSarathi: Skills (optional step)"
+      },
+      {
+        "command": "devsarathi.dashboard",
+        "title": "DevSarathi: Open dashboard"
+      },
+      {
+        "command": "devsarathi.disable",
+        "title": "DevSarathi: Disable (kill switch)"
+      },
+      {
+        "command": "devsarathi.enable",
+        "title": "DevSarathi: Enable"
+      },
+      {
+        "command": "devsarathi.status",
+        "title": "DevSarathi: Show status"
+      },
+      {
+        "command": "devsarathi.refreshPanel",
+        "title": "DevSarathi: Refresh sidebar"
+      },
+      {
+        "command": "devsarathi.showOutput",
+        "title": "DevSarathi: Show output"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devsarathi",
+          "title": "DevSarathi",
+          "icon": "$(compass)"
+        }
+      ]
+    },
+    "views": {
+      "devsarathi": [
+        {
+          "type": "webview",
+          "id": "devsarathi.sidebar",
+          "name": "DevSarathi"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "DevSarathi",
+      "properties": {
+        "devsarathi.cliPath": {
+          "type": "string",
+          "default": "devsarathi",
+          "scope": "machine-overridable",
+          "markdownDescription": "How to start the DevSarathi CLI. Default `devsarathi` (found on PATH). Set a full path to the `devsarathi` executable, or to `bin/devsarathi.js` (run with `node`)."
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0"
+  },
+  "icon": "media/icon.png",
+  "preview": true,
+  "keywords": [
+    "claude",
+    "claude code",
+    "ai",
+    "code review",
+    "knowledge graph",
+    "prompt",
+    "spec-driven development",
+    "security review",
+    "devsarathi"
+  ],
+  "galleryBanner": {
+    "color": "#121826",
+    "theme": "dark"
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "DevSarathi runs a local CLI that reads your repository, builds a graph and installs git hooks, so it is only available in a workspace you trust."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "DevSarathi needs a real git checkout on disk."
+    }
+  },
+  "license": "SEE LICENSE IN LICENSE.txt"
+}

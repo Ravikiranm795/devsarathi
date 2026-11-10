@@ -1,0 +1,10 @@
+{
+  "source": [
+    "**/*.py"
+  ],
+  "test": [
+    "tests/**/*.py",
+    "**/test_*.py",
+    "**/*_test.py"
+  ]
+}

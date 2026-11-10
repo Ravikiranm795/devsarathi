@@ -1,0 +1,27 @@
+{
+  "developer": [
+    "Constructor injection through the container; do not `new` services in methods.",
+    "Validate in form requests or validators, keep controllers thin, put logic in services or actions.",
+    "Use the ORM or query bindings; never concatenate input into SQL.",
+    "Escape output in views; do not echo raw user input.",
+    "Routes, middleware and policies: a new route needs authorization and a test."
+  ],
+  "tester": [
+    "PHPUnit or Pest tests under `tests/` mirror the namespace; use feature tests for routes and unit tests for services.",
+    "Use factories and database transactions; flag tests that rely on seeded data order.",
+    "Cover validation errors, authorization failures and not-found paths."
+  ],
+  "security": [
+    "`unserialize`, `eval`, `include` of a variable path, shell execution functions on input.",
+    "Mass assignment (`$guarded`/`$fillable`), missing CSRF, unescaped Blade output (`{!! !!}`).",
+    "`.env` changes, `APP_DEBUG=true`, keys in config files."
+  ],
+  "peer-review": [
+    "N+1 queries and missing eager loading; migrations that are not reversible.",
+    "Facade and container resolution by string can hide callers from the graph.",
+    "Breaking changes in response shapes and route names."
+  ],
+  "auditor": [
+    "Rules for PHP should mention constructor injection and tests under `tests/` mirroring namespaces."
+  ]
+}

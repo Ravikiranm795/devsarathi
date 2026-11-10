@@ -1,0 +1,5 @@
+{
+  "test": { "default": "npm test", "pnpm": "pnpm test", "yarn": "yarn test" },
+  "lint": { "default": "npm run lint", "pnpm": "pnpm lint", "yarn": "yarn lint" },
+  "build": { "default": "npm run build", "pnpm": "pnpm build", "yarn": "yarn build" }
+}

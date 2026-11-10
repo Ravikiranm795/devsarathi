@@ -1,0 +1,42 @@
+{
+  "id": "angular",
+  "displayName": "Angular",
+  "category": "frontend",
+  "signals": [
+    { "file": "angular.json" },
+    { "file": "package.json", "dep": "@angular/core" }
+  ],
+  "frameworks": [
+    { "name": "Angular Material", "file": "package.json", "dep": "@angular/material" },
+    { "name": "NgRx", "file": "package.json", "dep": "@ngrx/store" },
+    { "name": "Nx", "file": "nx.json" },
+    { "name": "Angular SSR", "file": "package.json", "dep": "@angular/ssr" }
+  ],
+  "tests": [
+    { "name": "Jasmine/Karma", "file": "package.json", "dep": "karma" },
+    { "name": "Jest", "file": "package.json", "dep": "jest" },
+    { "name": "Vitest", "file": "package.json", "dep": "vitest" },
+    { "name": "Cypress", "file": "package.json", "dep": "cypress" },
+    { "name": "Playwright", "file": "package.json", "dep": "@playwright/test" }
+  ],
+  "linters": [
+    { "name": "ESLint", "file": "package.json", "dep": "eslint" },
+    { "name": "TSLint", "file": "package.json", "dep": "tslint" },
+    { "name": "Prettier", "file": "package.json", "dep": "prettier" }
+  ],
+  "buildTools": [
+    { "name": "Angular CLI", "file": "angular.json" },
+    { "name": "Nx", "file": "nx.json" }
+  ],
+  "packageManagers": [
+    { "name": "pnpm", "file": "pnpm-lock.yaml" },
+    { "name": "yarn", "file": "yarn.lock" },
+    { "name": "npm", "file": "package-lock.json" }
+  ],
+  "stateManagement": [
+    { "name": "NgRx", "file": "package.json", "dep": "@ngrx/store" },
+    { "name": "NGXS", "file": "package.json", "dep": "@ngxs/store" },
+    { "name": "Akita", "file": "package.json", "dep": "@datorama/akita" },
+    { "name": "RxJS services", "file": "package.json", "dep": "rxjs" }
+  ]
+}

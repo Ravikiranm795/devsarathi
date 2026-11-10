@@ -1,0 +1,29 @@
+{
+  "id": "php",
+  "displayName": "PHP",
+  "category": "backend",
+  "signals": [
+    { "file": "composer.json" },
+    { "extension": ".php", "minCount": 3 }
+  ],
+  "frameworks": [
+    { "name": "Laravel", "file": "composer.json", "contains": "laravel/framework" },
+    { "name": "Laravel", "file": "artisan" },
+    { "name": "Symfony", "file": "composer.json", "contains": "symfony/framework-bundle" },
+    { "name": "Symfony", "file": "symfony.lock" }
+  ],
+  "tests": [
+    { "name": "PHPUnit", "file": "composer.json", "contains": "phpunit/phpunit" },
+    { "name": "PHPUnit", "file": "phpunit.xml" },
+    { "name": "Pest", "file": "composer.json", "contains": "pestphp/pest" }
+  ],
+  "linters": [
+    { "name": "PHPStan", "file": "composer.json", "contains": "phpstan/phpstan" },
+    { "name": "Psalm", "file": "composer.json", "contains": "vimeo/psalm" },
+    { "name": "PHP_CodeSniffer", "file": "composer.json", "contains": "squizlabs/php_codesniffer" },
+    { "name": "Laravel Pint", "file": "composer.json", "contains": "laravel/pint" }
+  ],
+  "buildTools": [{ "name": "Composer", "file": "composer.json" }],
+  "packageManagers": [{ "name": "Composer", "file": "composer.json" }],
+  "stateManagement": []
+}

@@ -1,0 +1,9 @@
+{
+  "source": [
+    "app/**/*.php",
+    "src/**/*.php"
+  ],
+  "test": [
+    "tests/**/*.php"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "focus": "For Java look at SQL built by string concatenation, unsafe deserialization (ObjectInputStream, enableDefaultTyping), XXE-prone parsers, disabled CSRF or TLS verification, and Class.forName on input.",
+  "patterns": [
+    {
+      "id": "java-sql-concat",
+      "re": "(executeQuery|executeUpdate|createQuery|createNativeQuery|prepareStatement)\\s*\\([^;]*\\+",
+      "severity": "high",
+      "message": "SQL built by string concatenation: use parameters",
+      "ext": [
+        ".java"
+      ]
+    },
+    {
+      "id": "java-deserialize",
+      "re": "new ObjectInputStream|enableDefaultTyping|readObject\\s*\\(",
+      "severity": "high",
+      "message": "Unsafe deserialization",
+      "ext": [
+        ".java"
+      ]
+    },
+    {
+      "id": "java-tls-off",
+      "re": "TrustAllCerts|ALLOW_ALL_HOSTNAME_VERIFIER|setHostnameVerifier\\([^)]*true",
+      "severity": "high",
+      "message": "TLS verification disabled",
+      "ext": [
+        ".java"
+      ]
+    },
+    {
+      "id": "java-csrf-off",
+      "re": "csrf\\(\\)\\.disable\\(\\)|csrf\\.disable\\(",
+      "severity": "medium",
+      "message": "CSRF protection disabled",
+      "ext": [
+        ".java"
+      ]
+    },
+    {
+      "id": "java-reflection",
+      "re": "Class\\.forName\\(",
+      "severity": "low",
+      "message": "Reflection: impact analysis cannot see this reference",
+      "ext": [
+        ".java"
+      ]
+    }
+  ]
+}

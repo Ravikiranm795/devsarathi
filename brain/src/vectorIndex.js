@@ -1,0 +1,151 @@
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const { EMBEDDING_DIM } = require('./embedder');
+
+/**
+ * A local, dependency-free ANN-style index: vectors are stored as a single
+ * flat Float32Array binary file, ids in a parallel JSON array. Search is
+ * brute-force cosine similarity.
+ *
+ * Why not a "real" HNSW index (usearch/faiss)? At the scale this tool
+ * targets - tens of thousands of symbols per repo, not millions - a
+ * normalized dot-product over a flat Float32Array is already sub-20ms in
+ * plain JS, and this approach has zero native-binary install risk across
+ * Windows/Mac/Linux. Swap this module for usearch later if a repo's symbol
+ * count grows past ~200k and search time becomes noticeable.
+ */
+class VectorIndex {
+  constructor(brainDir) {
+    this.dir = brainDir;
+    this.binPath = path.join(brainDir, 'vectors.bin');
+    this.metaPath = path.join(brainDir, 'vectors.meta.json');
+    this.ids = [];
+    this.vectors = null; // Float32Array, length = ids.length * EMBEDDING_DIM
+    this._load();
+  }
+
+  _load() {
+    if (fs.existsSync(this.metaPath) && fs.existsSync(this.binPath)) {
+      this.ids = JSON.parse(fs.readFileSync(this.metaPath, 'utf8'));
+      const buf = fs.readFileSync(this.binPath);
+      this.vectors = new Float32Array(buf.buffer, buf.byteOffset, buf.length / 4);
+    } else {
+      this.ids = [];
+      this.vectors = new Float32Array(0);
+    }
+  }
+
+  _save() {
+    fs.writeFileSync(this.metaPath, JSON.stringify(this.ids));
+    fs.writeFileSync(this.binPath, Buffer.from(this.vectors.buffer, this.vectors.byteOffset, this.vectors.byteLength));
+  }
+
+  /** Removes any existing vectors for the given symbol ids (used before re-adding on rebuild). */
+  removeIds(idsToRemove) {
+    const removeSet = new Set(idsToRemove);
+    const keepIdx = [];
+    for (let i = 0; i < this.ids.length; i++) {
+      if (!removeSet.has(this.ids[i])) keepIdx.push(i);
+    }
+    const newIds = keepIdx.map((i) => this.ids[i]);
+    const newVectors = new Float32Array(keepIdx.length * EMBEDDING_DIM);
+    keepIdx.forEach((oldI, newI) => {
+      newVectors.set(this.vectors.subarray(oldI * EMBEDDING_DIM, oldI * EMBEDDING_DIM + EMBEDDING_DIM), newI * EMBEDDING_DIM);
+    });
+    this.ids = newIds;
+    this.vectors = newVectors;
+  }
+
+  /** Drops every vector - used by a `--force` rebuild, which promises to rebuild from scratch. */
+  clear() {
+    this.ids = [];
+    this.vectors = new Float32Array(0);
+  }
+
+  addBatch(idVectorPairs) {
+    const extra = new Float32Array(idVectorPairs.length * EMBEDDING_DIM);
+    idVectorPairs.forEach(([id, vec], i) => {
+      extra.set(vec, i * EMBEDDING_DIM);
+      this.ids.push(id);
+    });
+    // Grow geometrically and expose an exact-length view. Re-allocating and copying the whole array for every
+    // file made a full build quadratic in the number of symbols (DevSarathi scale test: 21k symbols spent ~6s here).
+    const needed = this.vectors.length + extra.length;
+    const buf = this._buf;
+    const fits = buf && buf.length >= needed && this.vectors.buffer === buf.buffer && this.vectors.byteOffset === 0;
+    if (fits) {
+      buf.set(extra, this.vectors.length);
+    } else {
+      const grown = new Float32Array(Math.max(needed, Math.ceil(needed * 1.5)));
+      grown.set(this.vectors, 0);
+      grown.set(extra, this.vectors.length);
+      this._buf = grown;
+    }
+    this.vectors = this._buf.subarray(0, needed);
+  }
+
+  save() {
+    this._save();
+  }
+
+  /**
+   * Returns { symbolId, score }[], `score` a raw cosine similarity in
+   * [-1, 1] (1 = identical direction, 0 = orthogonal/unrelated, negative =
+   * opposing) since embeddings are pre-normalized before storage - see
+   * embedder.js's embedText(). In practice all-MiniLM-L6-v2 embeddings of
+   * real code/text rarely go negative; most unrelated-pair scores land
+   * around 0.1-0.3, same-topic pairs around 0.5-0.7+. query.js's search()
+   * does not return this raw score directly - it feeds this ranking into a
+   * reciprocal-rank fusion with FTS5 lexical search results, so the `score`
+   * an agent actually sees is an RRF score, not this cosine value; see
+   * query.js's DEFAULT_RRF_K comment and README §10.
+   */
+  search(queryVec, k = 10, weights = null) {
+    const n = this.ids.length;
+    if (!n || !(k > 0)) return [];
+
+    // Scores go in a Float32Array and the top-k is taken by a single
+    // threshold pass, rather than materializing n [score, id] pairs and
+    // fully sorting them. Same results, but it allocates one typed array
+    // instead of n two-element arrays, and sorts k items instead of n -
+    // the allocation and GC churn of the old shape cost about as much as
+    // the dot products themselves at this repo's size.
+    const scores = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      let dot = 0;
+      const base = i * EMBEDDING_DIM;
+      for (let d = 0; d < EMBEDDING_DIM; d++) {
+        dot += this.vectors[base + d] * queryVec[d];
+      }
+      // vectors are pre-normalized -> dot product == cosine similarity. `weights` (aligned with
+      // `ids`) scales a positive similarity so e.g. tests can be ranked below the code they test.
+      scores[i] = weights && dot > 0 ? dot * weights[i] : dot;
+    }
+
+    const limit = Math.min(k, n);
+    const top = []; // ascending by score; top[0] is the weakest kept result
+    for (let i = 0; i < n; i++) {
+      const score = scores[i];
+      if (top.length === limit && score <= top[0].score) continue;
+      // Insert into the sorted-ascending window, then drop the weakest.
+      let lo = 0;
+      let hi = top.length;
+      while (lo < hi) {
+        const mid = (lo + hi) >> 1;
+        if (top[mid].score < score) lo = mid + 1;
+        else hi = mid;
+      }
+      top.splice(lo, 0, { symbolId: this.ids[i], score });
+      if (top.length > limit) top.shift();
+    }
+    return top.reverse();
+  }
+
+  get size() {
+    return this.ids.length;
+  }
+}
+
+module.exports = { VectorIndex };

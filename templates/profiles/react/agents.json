@@ -1,0 +1,30 @@
+{
+  "developer": [
+    "Function components and hooks only; follow the Rules of Hooks and list every dependency of `useEffect`, `useMemo` and `useCallback`.",
+    "Keep data fetching in hooks or the existing data layer; components render and dispatch.",
+    "State lives at the lowest level that needs it; use the repo's store or context pattern rather than adding a second one.",
+    "Stable `key`s for lists; never the index when items can reorder.",
+    "Do not use `dangerouslySetInnerHTML` without a spec reason and sanitization."
+  ],
+  "tester": [
+    "Test through the rendered output with React Testing Library (queries by role and label), not implementation details or snapshots of large trees.",
+    "Mock the network at the boundary, not inside components; flag tests that hit real endpoints.",
+    "Cover loading, empty, error and success states of each async component.",
+    "Check effects clean up (timers, listeners, subscriptions) and that tests do not leak between cases."
+  ],
+  "security": [
+    "No raw HTML injection; sanitize any HTML from users or APIs.",
+    "Secrets never use a public env prefix (`REACT_APP_`, `NEXT_PUBLIC_`, `VITE_`).",
+    "Tokens belong in memory or httpOnly cookies, not `localStorage`; check redirects and `window.location` use for open redirects.",
+    "Third-party scripts and iframes need an allow-list."
+  ],
+  "peer-review": [
+    "Stale closures and missing effect dependencies; effects that should be event handlers.",
+    "Re-render cost: new objects or functions in props of memoized children, large lists without virtualization.",
+    "Prop drilling or duplicated state that already exists in the store.",
+    "Accessibility basics: semantic elements, labels, focus management in dialogs."
+  ],
+  "auditor": [
+    "Rules that mention hooks, components or test files should match the file naming actually seen in the repo (`*.test.tsx`)."
+  ]
+}

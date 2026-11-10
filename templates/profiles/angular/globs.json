@@ -1,0 +1,11 @@
+{
+  "source": [
+    "src/**/*.ts",
+    "src/**/*.html",
+    "src/**/*.scss"
+  ],
+  "test": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

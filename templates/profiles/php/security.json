@@ -1,0 +1,50 @@
+{
+  "focus": "For PHP look at SQL built by concatenation, unescaped output, unserialize on input, file inclusion from input, and shell execution.",
+  "patterns": [
+    {
+      "id": "php-unserialize",
+      "re": "\\bunserialize\\s*\\(",
+      "severity": "high",
+      "message": "Unsafe deserialization",
+      "ext": [
+        ".php"
+      ]
+    },
+    {
+      "id": "php-eval",
+      "re": "\\b(eval|assert)\\s*\\(",
+      "severity": "high",
+      "message": "Dynamic code execution",
+      "ext": [
+        ".php"
+      ]
+    },
+    {
+      "id": "php-exec",
+      "re": "\\b(shell_exec|exec|system|passthru|popen)\\s*\\(",
+      "severity": "high",
+      "message": "Shell execution",
+      "ext": [
+        ".php"
+      ]
+    },
+    {
+      "id": "php-sql-concat",
+      "re": "(query|execute|prepare)\\s*\\([^;]*\\$[a-zA-Z_]+[^;]*\\.|\\bDB::raw\\(",
+      "severity": "medium",
+      "message": "Possible SQL string building: use bindings",
+      "ext": [
+        ".php"
+      ]
+    },
+    {
+      "id": "php-include-var",
+      "re": "\\b(include|require)(_once)?\\s*\\(?\\s*\\$",
+      "severity": "high",
+      "message": "File inclusion from a variable",
+      "ext": [
+        ".php"
+      ]
+    }
+  ]
+}

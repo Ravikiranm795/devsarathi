@@ -1,0 +1,10 @@
+{
+  "focus": "For Node.js look at eval and new Function, child_process calls built from input (exec with template strings), disabled TLS verification, SQL built by concatenation, path traversal from request input, and secrets read from process.env then logged.",
+  "patterns": [
+    { "id": "node-eval", "re": "\beval\s*\(|new Function\s*\(", "severity": "high", "message": "Dynamic code execution", "ext": [".js", ".mjs", ".cjs", ".ts"] },
+    { "id": "node-exec-template", "re": "\b(exec|execSync)\s*\(\s*`[^`]*\$\{", "severity": "high", "message": "Shell command built from a template string: use execFile with an argument array", "ext": [".js", ".mjs", ".cjs", ".ts"] },
+    { "id": "node-tls-off", "re": "rejectUnauthorized\s*:\s*false|NODE_TLS_REJECT_UNAUTHORIZED\s*=\s*['\"]?0", "severity": "high", "message": "TLS verification disabled", "ext": [".js", ".mjs", ".cjs", ".ts", ".json"] },
+    { "id": "node-sql-concat", "re": "\.(query|execute)\s*\([^)]*(\+|`[^`]*\$\{)", "severity": "medium", "message": "SQL built by string concatenation: use parameters", "ext": [".js", ".mjs", ".cjs", ".ts"] },
+    { "id": "node-log-env", "re": "console\.(log|debug|info)\([^)]*process\.env", "severity": "medium", "message": "Environment values written to the log", "ext": [".js", ".mjs", ".cjs", ".ts"] }
+  ]
+}

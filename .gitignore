@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+*.log
+*.tsbuildinfo
+.claude/devsarathi/
+.devsarathi-tmp/
+*.tgz
+packages/vscode/devsarathi.vsix
+.vscode-test/

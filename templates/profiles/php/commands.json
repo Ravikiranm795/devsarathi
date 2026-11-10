@@ -1,0 +1,11 @@
+{
+  "test": {
+    "default": "composer test"
+  },
+  "lint": {
+    "default": "composer lint"
+  },
+  "build": {
+    "default": "composer install --no-interaction"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "test": {
+    "default": "python -m pytest -q",
+    "poetry": "poetry run pytest -q",
+    "uv": "uv run pytest -q",
+    "pipenv": "pipenv run pytest -q"
+  },
+  "lint": {
+    "default": "python -m ruff check .",
+    "poetry": "poetry run ruff check .",
+    "uv": "uv run ruff check ."
+  },
+  "build": {
+    "default": "python -m compileall -q ."
+  }
+}

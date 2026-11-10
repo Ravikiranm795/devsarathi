@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevSarathi dashboard</title>
+  <meta name="color-scheme" content="light dark">
+  <!-- Empty icon: the browser never asks the server for /favicon.ico (which would need a token). -->
+  <link rel="icon" href="data:,">
+  <!-- The server swaps the placeholder for this session's token: tags cannot send headers, and the CSP allows only same-origin files. -->
+  <link rel="stylesheet" href="style.css?token={{TOKEN}}">
+  <script src="app.js?token={{TOKEN}}" defer></script>
+</head>
+<body>
+  <a class="skip" href="#app">Skip to content</a>
+  <header class="topbar">
+    <div class="topbar-in">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 5v7l4 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>DevSarathi</span>
+        <span class="tag">read-only, local</span>
+      </div>
+      <div class="controls">
+        <label id="repo-wrap" class="repo-pick" hidden>
+          <span>Repository</span>
+          <select id="repo-select"></select>
+        </label>
+        <button type="button" id="refresh" class="btn">Refresh</button>
+        <button type="button" id="theme" class="btn" aria-pressed="false">Dark mode</button>
+      </div>
+    </div>
+  </header>
+  <main id="app" tabindex="-1" aria-busy="true">
+    <p class="empty">Loading dashboard data...</p>
+    <noscript><p class="empty">The dashboard needs JavaScript. It makes no network requests outside this machine.</p></noscript>
+  </main>
+  <footer class="foot">Counts, timings and hashes only. No prompts, code or secrets are shown. Commands never run from this page: use the VS Code terminal, Claude chat or the extension.</footer>
+</body>
+</html>

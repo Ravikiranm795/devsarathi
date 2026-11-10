@@ -1,0 +1,34 @@
+{
+  "developer": [
+    "Keep components thin: template bindings and event handlers only; fetching, mapping and business rules live in injectable services.",
+    "Inject with the constructor or `inject()`; never `new` a service. Check `providedIn` and module providers before adding a provider.",
+    "Subscriptions must end: prefer the `async` pipe, `takeUntilDestroyed`, or `take(1)`; no manual `subscribe` without teardown.",
+    "Follow the repo state pattern (NgRx or services with RxJS): changes go through actions/reducers or the service, never by mutating state in a component.",
+    "Touching a component means checking its template, its `selector` users and its routes: the impact lookup shows template-uses and route couplings.",
+    "Use typed forms and strict templates; no `any` in new code; keep `ChangeDetectionStrategy` consistent with neighbours."
+  ],
+  "tester": [
+    "Unit tests sit next to the file as `*.spec.ts` and use the existing TestBed setup; reuse the repo's test helpers and mock services.",
+    "Test behaviour through the rendered template and public methods, not private members; assert emitted outputs and called service methods.",
+    "Async code: use `fakeAsync`/`tick` or `waitForAsync`; flag tests that depend on real timers or the network.",
+    "For NgRx: test reducers as pure functions, selectors with sample state, effects with marbles or `of`.",
+    "Check the Karma/Jasmine config runs headless in CI and that `fdescribe`/`fit` was not committed."
+  ],
+  "security": [
+    "No `bypassSecurityTrust*` and no `innerHTML` binding on values that can contain user input.",
+    "Tokens and personal data do not belong in `localStorage`, URLs or logs; check interceptors attach credentials only to your own API origins.",
+    "Route guards and resolvers must enforce authorization server-side too; a hidden menu item is not access control.",
+    "Environment files: only public values; secrets never ship in the bundle. Check `src/environments` changes carefully.",
+    "Third-party scripts, iframes and `window.open` need an allow-list and `noopener`."
+  ],
+  "peer-review": [
+    "Does the template still match the component API (inputs, outputs, selectors) after the change? Open the templates that use it.",
+    "Lazy-loaded modules, route data and guards: does any route now point at something renamed or removed?",
+    "Change detection and performance: new `ngFor` without `trackBy`, heavy work in getters, subscriptions in loops.",
+    "Duplicated pipes, directives or services that already exist in `shared/` or `core/`.",
+    "Accessibility basics on new UI: labels, focus order, keyboard use, contrast."
+  ],
+  "auditor": [
+    "Rules that name Angular files should use the `name.kind.ts` suffixes seen in the repo; test-location rules should say `*.spec.ts` next to the source."
+  ]
+}

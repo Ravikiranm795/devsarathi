@@ -1,0 +1,107 @@
+[
+  {
+    "file": "ds-status",
+    "cli": "status",
+    "description": "DevSarathi status: graph age, baseline commit, branch drift, pending rule changes",
+    "hint": "",
+    "body": "Run `devsarathi status --json` and summarize it in two or three lines. Mention anything stale, disabled or pending."
+  },
+  {
+    "file": "ds-impact",
+    "cli": "impact",
+    "description": "Impact lookup before editing a symbol or file",
+    "hint": "<symbol> | --file <path>",
+    "body": "Run `devsarathi impact $ARGUMENTS --json`. Present callers, couplings, tests covering it, the confidence grade and every reason. The list may be incomplete for dynamic patterns; say so."
+  },
+  {
+    "file": "ds-review",
+    "cli": "review",
+    "description": "Full review of the current changes: security, impact, tests and spec. Same command the pre-push hook runs",
+    "hint": "",
+    "body": "Run `devsarathi review --json`. Print the numbered findings, red flags first. If any agent run shows status other than `completed`, print `<agent> did not run: <error>`; that is never a clean review. Then, acting as `ds-peer-review`, check each caller listed under untouched callers and add comments. Do not change code."
+  },
+  {
+    "file": "ds-test",
+    "cli": "test",
+    "description": "Run the tester: tests exist for changed logic, run them, map to acceptance criteria",
+    "hint": "",
+    "body": "Delegate to the `ds-tester` agent. It runs `devsarathi test --json` and reports pass, fail or incomplete. Never report a pass for a run that did not complete."
+  },
+  {
+    "file": "ds-enhance",
+    "cli": "enhance",
+    "description": "Turn a short request plus the spec or Jira ticket into an accurate, ordered prompt",
+    "hint": "\"<request>\" [--spec <path> | --jira <KEY>]",
+    "body": "Run `devsarathi enhance $ARGUMENTS --json`. If it lists problems with the spec, show them and stop for the developer; never fill the gaps. If a Jira ticket could not be fetched, ask for a paste and pass it with `--paste`. Otherwise show the enhanced prompt as a preview and ask the developer to accept, edit or reject it, then record the answer with `devsarathi enhance --outcome accepted|edited|rejected` and carry out the accepted prompt."
+  },
+  {
+    "file": "ds-refresh",
+    "cli": "refresh",
+    "description": "Incrementally refresh the graph and propose rule updates",
+    "hint": "",
+    "body": "Run `devsarathi refresh`. Summarize what changed and list any rule changes waiting for approval (`/ds-rules pending`)."
+  },
+  {
+    "file": "ds-graph-build",
+    "cli": "graph build",
+    "description": "Build the Drishti graph (baseline by default)",
+    "hint": "[--full] [--current]",
+    "body": "Run `devsarathi graph build $ARGUMENTS`. A build can take minutes on a large repo; it runs in the background elsewhere and is safe to leave."
+  },
+  {
+    "file": "ds-rules",
+    "cli": "rules",
+    "description": "List and decide pending rule changes",
+    "hint": "pending | approve <id> | reject <id>",
+    "body": "Run `devsarathi rules $ARGUMENTS`. Present each pending change with its reason and risk; the developer approves or rejects. Do not approve on their behalf."
+  },
+  {
+    "file": "ds-metrics",
+    "cli": "metrics",
+    "description": "Show local metrics and regenerate the reports",
+    "hint": "[--report]",
+    "body": "Run `devsarathi metrics $ARGUMENTS` and summarize turns per task (before versus after) together with the acceptance rate."
+  },
+  {
+    "file": "ds-dashboard",
+    "cli": "dashboard",
+    "description": "Open the local dashboard",
+    "hint": "",
+    "body": "Run `devsarathi dashboard`. It serves on 127.0.0.1 only."
+  },
+  {
+    "file": "ds-selftest",
+    "cli": "selftest",
+    "description": "Run the planted-problem self-test",
+    "hint": "",
+    "body": "Run `devsarathi selftest` and report each check. A failure must be shown with its details."
+  },
+  {
+    "file": "ds-skills",
+    "cli": "skills",
+    "description": "Optional: research and install Claude skills for this stack",
+    "hint": "",
+    "body": "Run `devsarathi skills`. It shows the exact summary payload before anything is sent, and installs only ticked items."
+  },
+  {
+    "file": "ds-migrate",
+    "cli": "migrate",
+    "description": "Bring generated files up to the installed DevSarathi version",
+    "hint": "",
+    "body": "Run `devsarathi migrate` and show the diff. Files the developer edited are never overwritten."
+  },
+  {
+    "file": "ds-disable",
+    "cli": "disable",
+    "description": "Kill switch: turn off all DevSarathi hooks and automatic behavior",
+    "hint": "",
+    "body": "Run `devsarathi disable`."
+  },
+  {
+    "file": "ds-enable",
+    "cli": "enable",
+    "description": "Turn DevSarathi hooks and automatic behavior back on",
+    "hint": "",
+    "body": "Run `devsarathi enable`."
+  }
+]

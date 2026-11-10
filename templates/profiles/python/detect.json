@@ -1,0 +1,159 @@
+{
+  "id": "python",
+  "displayName": "Python",
+  "category": "backend",
+  "signals": [
+    {
+      "file": "pyproject.toml"
+    },
+    {
+      "file": "requirements.txt"
+    },
+    {
+      "file": "setup.py"
+    },
+    {
+      "file": "Pipfile"
+    }
+  ],
+  "frameworks": [
+    {
+      "name": "Django",
+      "file": "requirements.txt",
+      "contains": "django"
+    },
+    {
+      "name": "Django",
+      "file": "pyproject.toml",
+      "contains": "django"
+    },
+    {
+      "name": "Django",
+      "file": "manage.py"
+    },
+    {
+      "name": "FastAPI",
+      "file": "requirements.txt",
+      "contains": "fastapi"
+    },
+    {
+      "name": "FastAPI",
+      "file": "pyproject.toml",
+      "contains": "fastapi"
+    },
+    {
+      "name": "Flask",
+      "file": "requirements.txt",
+      "contains": "flask"
+    },
+    {
+      "name": "Flask",
+      "file": "pyproject.toml",
+      "contains": "flask"
+    }
+  ],
+  "tests": [
+    {
+      "name": "pytest",
+      "file": "requirements.txt",
+      "contains": "pytest"
+    },
+    {
+      "name": "pytest",
+      "file": "pyproject.toml",
+      "contains": "pytest"
+    },
+    {
+      "name": "pytest",
+      "file": "pytest.ini"
+    },
+    {
+      "name": "unittest",
+      "file": "setup.py",
+      "contains": "unittest"
+    }
+  ],
+  "linters": [
+    {
+      "name": "Ruff",
+      "file": "pyproject.toml",
+      "contains": "ruff"
+    },
+    {
+      "name": "Ruff",
+      "file": "ruff.toml"
+    },
+    {
+      "name": "Flake8",
+      "file": ".flake8"
+    },
+    {
+      "name": "Pylint",
+      "file": "requirements.txt",
+      "contains": "pylint"
+    },
+    {
+      "name": "Black",
+      "file": "pyproject.toml",
+      "contains": "black"
+    },
+    {
+      "name": "mypy",
+      "file": "mypy.ini"
+    },
+    {
+      "name": "Ruff",
+      "file": "requirements.txt",
+      "contains": "ruff"
+    },
+    {
+      "name": "Flake8",
+      "file": "requirements.txt",
+      "contains": "flake8"
+    },
+    {
+      "name": "Black",
+      "file": "requirements.txt",
+      "contains": "black"
+    },
+    {
+      "name": "mypy",
+      "file": "requirements.txt",
+      "contains": "mypy"
+    }
+  ],
+  "buildTools": [
+    {
+      "name": "Poetry",
+      "file": "poetry.lock"
+    },
+    {
+      "name": "Hatch",
+      "file": "pyproject.toml",
+      "contains": "hatchling"
+    },
+    {
+      "name": "setuptools",
+      "file": "setup.py"
+    }
+  ],
+  "packageManagers": [
+    {
+      "name": "uv",
+      "file": "uv.lock"
+    },
+    {
+      "name": "Poetry",
+      "file": "poetry.lock"
+    },
+    {
+      "name": "Pipenv",
+      "file": "Pipfile"
+    },
+    {
+      "name": "pip",
+      "file": "requirements.txt"
+    }
+  ],
+  "stateManagement": []
+}

@@ -1,0 +1,11 @@
+src/**
+test/**
+test-host/**
+tsconfig.json
+tsconfig.tsbuildinfo
+**/*.map
+**/*.ts
+!**/*.d.ts
+.vscode/**
+node_modules/**
+*.vsix

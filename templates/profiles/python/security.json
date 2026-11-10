@@ -1,0 +1,59 @@
+{
+  "focus": "For Python look at eval/exec, pickle or yaml.load on input, subprocess with shell=True, SQL built with f-strings, and debug mode left on.",
+  "patterns": [
+    {
+      "id": "py-eval",
+      "re": "\\b(eval|exec)\\s*\\(",
+      "severity": "high",
+      "message": "Dynamic code execution",
+      "ext": [
+        ".py"
+      ]
+    },
+    {
+      "id": "py-pickle",
+      "re": "pickle\\.loads?\\(|yaml\\.load\\((?![^)]*Loader=(Safe|yaml\\.Safe))",
+      "severity": "high",
+      "message": "Unsafe deserialization",
+      "ext": [
+        ".py"
+      ]
+    },
+    {
+      "id": "py-shell",
+      "re": "shell\\s*=\\s*True",
+      "severity": "high",
+      "message": "subprocess with shell=True",
+      "ext": [
+        ".py"
+      ]
+    },
+    {
+      "id": "py-sql-fstring",
+      "re": "(execute|executemany)\\(\\s*f[\"']",
+      "severity": "high",
+      "message": "SQL built with an f-string: use parameters",
+      "ext": [
+        ".py"
+      ]
+    },
+    {
+      "id": "py-debug",
+      "re": "DEBUG\\s*=\\s*True",
+      "severity": "medium",
+      "message": "Debug mode enabled",
+      "ext": [
+        ".py"
+      ]
+    },
+    {
+      "id": "py-dynamic-import",
+      "re": "importlib\\.import_module|__import__\\(|getattr\\(",
+      "severity": "low",
+      "message": "Dynamic reference: impact analysis cannot see this",
+      "ext": [
+        ".py"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "developer": [
+    "Constructor injection with `final` fields; no field `@Autowired`. Check bean scope and qualifiers before adding a bean.",
+    "Controllers validate and map; services hold logic; repositories hold queries. Return DTOs, not entities.",
+    "Parameterized queries only. Transactions belong on service methods with the right propagation and read-only flags.",
+    "Handle errors through the shared exception handler; never swallow an exception.",
+    "The impact lookup shows `injected-by` and route couplings: a changed service signature affects every class that injects it."
+  ],
+  "tester": [
+    "JUnit tests mirror the package of the class under test; use `@WebMvcTest`/`@DataJpaTest` slices before full `@SpringBootTest`.",
+    "Mock collaborators with Mockito at the unit level; assert behaviour and interactions, not private state.",
+    "Cover validation failures, not-found and conflict paths of each endpoint, and transactional rollbacks.",
+    "Check tests do not depend on test order, system time or a shared database state."
+  ],
+  "security": [
+    "No SQL built by concatenation; check JPQL and native queries.",
+    "Unsafe deserialization (`ObjectInputStream`, default typing), XXE-prone XML parsers, and `Class.forName` on input.",
+    "CSRF, CORS and method security: new endpoints need authorization annotations or config; check `permitAll` additions.",
+    "Secrets in `application*.properties` or `.yml` must come from the environment or a vault, not the file.",
+    "Dependency changes in `pom.xml` or `build.gradle`: known-vulnerable versions, new transitive repositories."
+  ],
+  "peer-review": [
+    "Entity changes need a migration; check Flyway/Liquibase scripts and nullability.",
+    "N+1 queries, missing indexes, unbounded `findAll`, lazy loading outside a transaction.",
+    "Public API shape changes (JSON fields, status codes) are breaking for clients.",
+    "Reflection and Spring wiring by name can hide callers from the graph: search the config for the bean name."
+  ],
+  "auditor": [
+    "Rules for Java should mention constructor injection and layering consistently; test-location rules should say `src/test/java` mirroring packages."
+  ]
+}

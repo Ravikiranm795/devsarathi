@@ -1,0 +1,17 @@
+{
+  "test": {
+    "default": "mvn -q test",
+    "maven": "mvn -q test",
+    "gradle": "gradlew test"
+  },
+  "lint": {
+    "default": "mvn -q verify -DskipTests",
+    "maven": "mvn -q verify -DskipTests",
+    "gradle": "gradlew check -x test"
+  },
+  "build": {
+    "default": "mvn -q package -DskipTests",
+    "maven": "mvn -q package -DskipTests",
+    "gradle": "gradlew build -x test"
+  }
+}

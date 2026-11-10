@@ -1,0 +1,96 @@
+{
+  "name": "@ravikiranm795/dev-sarathi",
+  "version": "1.1.0",
+  "description": "DevSarathi: steers the developer and Claude with the right context. Drishti knowledge graph, generated Claude workspace, review hooks, prompt enhancer and local metrics.",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "bin": {
+    "devsarathi": "bin/devsarathi.js",
+    "devsarathi-mcp": "bin/devsarathi-mcp.js"
+  },
+  "main": "packages/core/dist/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "packages/*",
+    "brain"
+  ],
+  "files": [
+    "bin",
+    "packages/dashboard/web",
+    "brain/src",
+    "brain/bin",
+    "templates",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "test-fixtures/selftest",
+    "packages/vscode/devsarathi.vsix",
+    "packages/*/dist/**",
+    "!packages/*/dist/**/*.map",
+    "!packages/*/dist/**/*.d.ts",
+    "!packages/*/dist/**/*.tsbuildinfo",
+    "!packages/vscode/dist/**"
+  ],
+  "scripts": {
+    "build": "tsc -b && node scripts/relink.js",
+    "clean": "tsc -b --clean",
+    "test": "npm run build && vitest run && npm run test:brain",
+    "test:brain": "npm test --workspace drishti-brain",
+    "selftest": "node bin/devsarathi.js selftest",
+    "build:vsix": "node scripts/build-vsix.js",
+    "prepack": "npm run build && npm run build:vsix",
+    "publish:vscode": "node scripts/publish-vscode.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@xenova/transformers": "^2.17.2",
+    "better-sqlite3": "^13.0.3",
+    "commander": "^12.1.0",
+    "docx": "^9.0.0",
+    "ignore": "^5.3.2",
+    "open": "^10.1.0",
+    "three": "0.149.0",
+    "tree-sitter": "^0.21.1",
+    "tree-sitter-c-sharp": "^0.21.3",
+    "tree-sitter-java": "^0.23.5",
+    "tree-sitter-javascript": "^0.23.1",
+    "tree-sitter-php": "^0.23.7",
+    "tree-sitter-python": "^0.23.2",
+    "tree-sitter-typescript": "^0.23.2",
+    "vscode-jsonrpc": "^9.0.2",
+    "vscode-languageserver-protocol": "^3.18.3",
+    "xxhash-wasm": "^1.0.2",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.1.0",
+    "jszip": "^3.10.2",
+    "playwright-core": "^1.65.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "overrides": {
+    "tree-sitter-c-sharp": {
+      "tree-sitter": "0.21.1"
+    },
+    "tree-sitter-java": {
+      "tree-sitter": "0.21.1"
+    },
+    "tree-sitter-javascript": {
+      "tree-sitter": "0.21.1"
+    },
+    "tree-sitter-php": {
+      "tree-sitter": "0.21.1"
+    },
+    "tree-sitter-python": {
+      "tree-sitter": "0.21.1"
+    },
+    "tree-sitter-typescript": {
+      "tree-sitter": "0.21.1"
+    }
+  }
+}
