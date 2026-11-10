@@ -1,6 +1,6 @@
 {
   "name": "@ravikiranm795/dev-sarathi",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "DevSarathi: steers the developer and Claude with the right context. Drishti knowledge graph, generated Claude workspace, review hooks, prompt enhancer and local metrics.",
   "license": "UNLICENSED",
   "type": "commonjs",
